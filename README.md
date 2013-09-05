@@ -25,7 +25,7 @@ $ vagrant up && sleep 120 && vagrant reload
 $ vagrant ssh
 ```
 
-## Install dependencies
+### Install dependencies
 
 Once you're on a Ubuntu machine, install the following dependencies:
 
