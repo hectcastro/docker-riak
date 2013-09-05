@@ -7,7 +7,7 @@ pipework:
 	sudo sysctl -p /etc/sysctl.conf
 	sudo /etc/init.d/procps restart >/dev/null
 
-riak:
+riak-container:
 	sudo docker build -t "hectcastro/riak" .
 
 start-cluster:

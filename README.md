@@ -26,12 +26,7 @@ $ sudo apt-get install -y git curl make sshpass
 $ git clone https://github.com/hectcastro/docker-riak.git
 $ cd docker-riak
 $ make
-```
-
-### Make a Docker image for Riak
-
-```bash
-$ make riak
+$ make riak-container
 ```
 
 ### Launch cluster
