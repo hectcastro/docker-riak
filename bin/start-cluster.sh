@@ -50,7 +50,7 @@ sshpass -p "basho" \
   ssh -o "StrictHostKeyChecking no" root@33.33.33.10 \
     riak-admin cluster plan
 
-read -p "Commit these cluster changes? " RESP
+read -p "Commit these cluster changes? (y/n): " RESP
 if [[ $RESP =~ ^[Yy]$ ]] ; then
   sshpass -p "basho" \
     ssh -o "StrictHostKeyChecking no" root@33.33.33.10 \
