@@ -39,7 +39,7 @@ do
 
   if [ "$index" -gt "1" ] ; then
     sshpass -p "basho" \
-      ssh -o "StrictHostKeyChecking no" root@33.33.33.${index}0 \
+      ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" root@33.33.33.${index}0 \
         riak-admin cluster join riak@33.33.33.10
   fi
 done
@@ -47,16 +47,16 @@ done
 sleep 1
 
 sshpass -p "basho" \
-  ssh -o "StrictHostKeyChecking no" root@33.33.33.10 \
+  ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" root@33.33.33.10 \
     riak-admin cluster plan
 
 read -p "Commit these cluster changes? (y/n): " RESP
 if [[ $RESP =~ ^[Yy]$ ]] ; then
   sshpass -p "basho" \
-    ssh -o "StrictHostKeyChecking no" root@33.33.33.10 \
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" root@33.33.33.10 \
       riak-admin cluster commit
 else
   sshpass -p "basho" \
-    ssh -o "StrictHostKeyChecking no" root@33.33.33.10 \
+    ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" root@33.33.33.10 \
       riak-admin cluster clear
 fi
