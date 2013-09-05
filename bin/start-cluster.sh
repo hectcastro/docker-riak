@@ -3,6 +3,18 @@
 set -e
 set -x
 
+if sudo docker ps | grep "hectcastro/riak" >/dev/null; then
+  echo ""
+  echo "It looks like you already have some containers running."
+  echo "Please take them down before attempting to bring up another"
+  echo "cluster with the following command:"
+  echo ""
+  echo "  make stop-cluster"
+  echo ""
+
+  exit 1
+fi
+
 for index in `seq 5`;
 do
   CONTAINER_ID=$(sudo docker run -d -i \
