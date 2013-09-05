@@ -1,7 +1,6 @@
 #! /bin/bash
 
 set -e
-set -x
 
 if sudo docker ps | grep "hectcastro/riak" >/dev/null; then
   echo ""
@@ -26,6 +25,8 @@ do
 
   sudo ./bin/pipework br1 ${CONTAINER_ID} "33.33.33.${index}0"
 
+  echo "Started [riak${index}] and assigned it the IP [33.33.33.${index}0]"
+
   if [ "$index" -eq "1" ] ; then
     sudo ifconfig br1 33.33.33.254
 
@@ -38,6 +39,8 @@ do
   done
 
   if [ "$index" -gt "1" ] ; then
+    echo "Requesting that [riak${index}] join the cluster.."
+
     sshpass -p "basho" \
       ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" root@33.33.33.${index}0 \
         riak-admin cluster join riak@33.33.33.10
