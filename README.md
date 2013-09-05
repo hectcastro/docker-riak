@@ -16,12 +16,9 @@ If you're not on a Ubuntu host, use [Vagrant](http://www.vagrantup.com) to
 spin up a [Ubuntu virtual machine with Docker
 installed](http://docs.docker.io/en/latest/installation/vagrant/).
 
-Launching the Vagrant virtual machine installs VirtualBox extensions that
-require a reboot to take effect. I typically bring it up using the following
-sequence of commands:
+Then, login to the virtual machine:
 
 ```bash
-$ vagrant up && sleep 120 && vagrant reload
 $ vagrant ssh
 ```
 
