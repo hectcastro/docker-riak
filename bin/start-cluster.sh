@@ -23,7 +23,7 @@ do
 
   sleep 1
 
-  sudo ./bin/pipework br1 ${CONTAINER_ID} "33.33.33.${index}0"
+  sudo ./bin/pipework br1 ${CONTAINER_ID} "33.33.33.${index}0/24"
 
   echo "Started [riak${index}] and assigned it the IP [33.33.33.${index}0]"
 
