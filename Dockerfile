@@ -24,7 +24,9 @@ ADD ./etc/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN echo 'root:basho' | chpasswd
 
 # Add Basho's APT repository
-RUN curl -s http://apt.basho.com/gpg/basho.apt.key | apt-key add --
+ADD basho.apt.key /tmp/basho.apt.key
+RUN apt-key add /tmp/basho.apt.key
+RUN rm /tmp/basho.apt.key
 RUN echo "deb http://apt.basho.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/basho.list
 RUN apt-get update
 
