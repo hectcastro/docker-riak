@@ -9,17 +9,13 @@ MAINTAINER Hector Castro hector@basho.com
 # Update the APT cache
 RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get upgrade -y
 
 # Install and setup project dependencies
-RUN apt-get install -y curl lsb-release supervisor openssh-server
+RUN apt-get install -y lsb-release openssh-server
 
 RUN mkdir -p /var/run/sshd
-RUN mkdir -p /var/log/supervisor
 
 RUN locale-gen en_US en_US.UTF-8
-
-ADD ./etc/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN echo 'root:basho' | chpasswd
 
@@ -33,7 +29,6 @@ RUN apt-get update
 # Install Riak and prepare it to run
 RUN apt-get install -y riak
 RUN sed -i.bak 's/127.0.0.1/0.0.0.0/' /etc/riak/app.config
-RUN echo "sed -i.bak \"s/127.0.0.1/\${RIAK_NODE_NAME}/\" /etc/riak/vm.args" > /etc/default/riak
 RUN sed -i.bak 's/{anti_entropy_concurrency, 2}/{anti_entropy_concurrency, 1}/' /etc/riak/app.config
 RUN sed -i.bak 's/{map_js_vm_count, 8 }/{map_js_vm_count, 0 }/' /etc/riak/app.config
 RUN sed -i.bak 's/{reduce_js_vm_count, 6 }/{reduce_js_vm_count, 0 }/' /etc/riak/app.config
