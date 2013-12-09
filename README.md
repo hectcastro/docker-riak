@@ -1,9 +1,7 @@
 # docker-riak
 
 This is a [Docker](http://docker.io) project to bring up a local
-[Riak](https://github.com/basho/riak) cluster. In addition, the
-[Pipework](https://github.com/jpetazzo/pipework) project is used to connect
-containers to each other.
+[Riak](https://github.com/basho/riak) cluster.
 
 ## Installation
 
@@ -35,9 +33,9 @@ $ sudo apt-get install -y git curl make sshpass
 ### Clone repository
 
 ```bash
+$ export DOCKER_API_ENDPOINT="tcp://192.168.101.101:4242"
 $ git clone https://github.com/hectcastro/docker-riak.git
 $ cd docker-riak
-$ make
 $ make riak-container
 ```
 

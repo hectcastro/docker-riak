@@ -1,14 +1,7 @@
-all: pipework
-
-pipework:
-	curl -s https://raw.github.com/jpetazzo/pipework/master/pipework > ./bin/pipework
-	chmod u+x ./bin/pipework
-	sudo sed -i.bak 's/\#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
-	sudo sysctl -p /etc/sysctl.conf
-	sudo /etc/init.d/procps restart >/dev/null
+all: riak-container
 
 riak-container:
-	sudo docker build -t "hectcastro/riak" .
+	docker -H=$$DOCKER_API_ENDPOINT build -t "hectcastro/riak" .
 
 start-cluster:
 	./bin/start-cluster.sh
