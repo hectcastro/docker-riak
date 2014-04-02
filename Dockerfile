@@ -2,8 +2,7 @@
 #
 # VERSION       0.1.0
 
-# Use the Ubuntu base image provided by dotCloud
-FROM ubuntu:latest
+FROM ubuntu:precise
 MAINTAINER Hector Castro hector@basho.com
 
 # Update the APT cache
