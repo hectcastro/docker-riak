@@ -14,19 +14,21 @@ RUN apt-get install -y lsb-release openssh-server
 
 RUN mkdir -p /var/run/sshd
 
+# Install Riak
+ENV RIAK_VERSION 1.4.8
+ENV RIAK_SHORT_VERSION 1.4
+ADD http://s3.amazonaws.com/downloads.basho.com/riak/$RIAK_SHORT_VERSION/$RIAK_VERSION/ubuntu/precise/riak_$RIAK_VERSION-1_amd64.deb /
+RUN (cd / && dpkg -i riak_$RIAK_VERSION-1_amd64.deb)
+RUN rm /riak_$RIAK_VERSION-1_amd64.deb
+
+# Update locale
 RUN locale-gen en_US en_US.UTF-8
 
+# Set root password
 RUN echo 'root:basho' | chpasswd
 
-# Add Basho's APT repository
-ADD basho.apt.key /tmp/basho.apt.key
-RUN apt-key add /tmp/basho.apt.key
-RUN rm /tmp/basho.apt.key
-RUN echo "deb http://apt.basho.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/basho.list
-RUN apt-get update
 
 # Install Riak and prepare it to run
-RUN apt-get install -y riak
 RUN sed -i.bak 's/127.0.0.1/0.0.0.0/' /etc/riak/app.config
 RUN sed -i.bak 's/{anti_entropy_concurrency, 2}/{anti_entropy_concurrency, 1}/' /etc/riak/app.config
 RUN sed -i.bak 's/{map_js_vm_count, 8 }/{map_js_vm_count, 0 }/' /etc/riak/app.config
