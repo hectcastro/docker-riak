@@ -5,13 +5,13 @@
 FROM ubuntu:precise
 MAINTAINER Hector Castro hector@basho.com
 
-# Update the APT cache
+# Install dependencies
 RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
-RUN apt-get update
+RUN apt-get update -qq && apt-get install -y \
+    logrotate \
+    openssh-server
 
-# Install and setup project dependencies
-RUN apt-get install -y lsb-release openssh-server
-
+# Create run directory for sshd
 RUN mkdir -p /var/run/sshd
 
 # Install Riak
