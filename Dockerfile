@@ -27,14 +27,13 @@ RUN locale-gen en_US en_US.UTF-8
 # Set root password
 RUN echo 'root:basho' | chpasswd
 
-
-# Install Riak and prepare it to run
-RUN sed -i.bak 's/127.0.0.1/0.0.0.0/' /etc/riak/app.config
-RUN sed -i.bak 's/{anti_entropy_concurrency, 2}/{anti_entropy_concurrency, 1}/' /etc/riak/app.config
-RUN sed -i.bak 's/{map_js_vm_count, 8 }/{map_js_vm_count, 0 }/' /etc/riak/app.config
-RUN sed -i.bak 's/{reduce_js_vm_count, 6 }/{reduce_js_vm_count, 0 }/' /etc/riak/app.config
-RUN sed -i.bak 's/{hook_js_vm_count, 2 }/{hook_js_vm_count, 0 }/' /etc/riak/app.config
-RUN sed -i.bak "s/##+zdbbl/+zdbbl/" /etc/riak/vm.args
+# Tune Riak configuration settings for the container
+RUN sed -i.bak 's/127.0.0.1/0.0.0.0/' /etc/riak/app.config && \
+    sed -i.bak 's/{anti_entropy_concurrency, 2}/{anti_entropy_concurrency, 1}/' /etc/riak/app.config && \
+    sed -i.bak 's/{map_js_vm_count, 8 }/{map_js_vm_count, 0 }/' /etc/riak/app.config && \
+    sed -i.bak 's/{reduce_js_vm_count, 6 }/{reduce_js_vm_count, 0 }/' /etc/riak/app.config && \
+    sed -i.bak 's/{hook_js_vm_count, 2 }/{hook_js_vm_count, 0 }/' /etc/riak/app.config && \
+    sed -i.bak "s/##+zdbbl/+zdbbl/" /etc/riak/vm.args
 
 # ulimits
 RUN echo "ulimit -n 4096" >> /etc/default/riak
