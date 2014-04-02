@@ -1,7 +1,9 @@
-all: riak-container
+.PHONY: all riak-container start-cluster test-cluster stop-cluster
+
+all: stop-cluster riak-container start-cluster
 
 riak-container:
-	docker -H=$$DOCKER_API_ENDPOINT build -t "hectcastro/riak" .
+	docker build -t "hectcastro/riak" .
 
 start-cluster:
 	./bin/start-cluster.sh
