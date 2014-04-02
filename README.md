@@ -17,9 +17,21 @@ correctly:
 $ export DOCKER_HOST="tcp://127.0.0.1:4243"
 ```
 
+**Note:** If you're using [boot2docker](https://github.com/boot2docker/boot2docker)
+ensure that you forward the virtual machine port range (49000-49900). This
+will allow you to interact with the containers as if they were running
+locally:
+
+```bash
+$ for i in {49000..49900}; do
+ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port$i,tcp,,$i,,$i";
+ VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port$i,udp,,$i,,$i";
+done
+```
+
 ### Install `sshpass`
 
-On most UNIX operating systems, `sshpass` is included in their package
+On most UNIX operating systems `sshpass` is included in the package
 repositories:
 
 ```bash
