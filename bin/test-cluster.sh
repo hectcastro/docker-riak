@@ -8,4 +8,4 @@ SEED_SSH_PORT=$(docker inspect $SEED_CONTAINER_ID | grep -A13 "PortBindings" | g
 
 sshpass -p "basho" \
   ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" -p $SEED_SSH_PORT root@localhost \
-    riak-admin ringready
+    riak-admin member-status
