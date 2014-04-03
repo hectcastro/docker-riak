@@ -18,7 +18,7 @@ RUN mkdir -p /var/run/sshd
 ENV RIAK_VERSION 1.4.8
 ENV RIAK_SHORT_VERSION 1.4
 ADD http://s3.amazonaws.com/downloads.basho.com/riak/$RIAK_SHORT_VERSION/$RIAK_VERSION/ubuntu/precise/riak_$RIAK_VERSION-1_amd64.deb /
-RUN (cd / && dpkg -i riak_$RIAK_VERSION-1_amd64.deb)
+RUN dpkg -i /riak_$RIAK_VERSION-1_amd64.deb
 RUN rm /riak_$RIAK_VERSION-1_amd64.deb
 
 # Update locale
