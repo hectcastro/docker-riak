@@ -26,20 +26,24 @@ do
   fi
 
   CONTAINER_ID=$(docker ps | egrep "riak0${index}[^/]" | cut -d" " -f1)
-  PORT=$(docker inspect "$CONTAINER_ID" | grep -A13 "PortBindings" | grep -A5 "8098/tcp" | grep "HostPort" | cut -d'"' -f 4 | tr -d "\n")
+  CONTAINER_PORT=$(docker port "$CONTAINER_ID" 8098 | cut -d ":" -f2)
 
-  until curl -s "http://localhost:$PORT/ping" | grep "OK" >/dev/null;
+  until curl -s "http://localhost:$CONTAINER_PORT/ping" | grep "OK" >/dev/null;
   do
-    sleep 3
+    sleep 1
   done
 
   echo "Successfully brought up [riak0${index}]"
 done
 
+echo
+echo "Preparing to cluster the Riak nodes..."
+echo
+
 sleep 10
 
 SEED_CONTAINER_ID=$(docker ps | egrep "riak01" | cut -d" " -f1)
-SEED_SSH_PORT=$(docker inspect "$SEED_CONTAINER_ID" | grep -A13 "PortBindings" | grep -A5 "22/tcp" | grep "HostPort" | cut -d'"' -f 4 | tr -d "\n")
+SEED_SSH_PORT=$(docker port "$SEED_CONTAINER_ID" 22 | cut -d ":" -f2)
 
 sshpass -p "basho" \
   ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" -p "$SEED_SSH_PORT" root@localhost \
