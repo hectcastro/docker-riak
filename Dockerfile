@@ -6,6 +6,7 @@ FROM ubuntu:precise
 MAINTAINER Hector Castro hector@basho.com
 
 # Install dependencies
+ENV DEBIAN_FRONTEND noninteractive
 RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
 RUN apt-get update -qq && apt-get install -y \
     logrotate \
