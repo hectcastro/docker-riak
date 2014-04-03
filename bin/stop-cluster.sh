@@ -1,8 +1,12 @@
 #! /bin/bash
 
 set -e
+# set -x
 
-if sudo docker ps | grep "hectcastro/riak" >/dev/null; then
-  sudo docker ps | grep "hectcastro/riak" | awk '{ print $1 }' | xargs -r sudo docker kill >/dev/null
-  echo "Stopped the cluster and cleared all of the running containers."
-fi
+for container in $(docker ps | grep "hectcastro/riak" | cut -d" " -f1);
+do
+  docker kill "${container}" > /dev/null 2>&1
+  docker rm "${container}" > /dev/null 2>&1
+done
+
+echo "Stopped the cluster and cleared all of the running containers."

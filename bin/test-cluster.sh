@@ -1,8 +1,11 @@
 #! /bin/bash
 
 set -e
+# set -x
 
-for index in `seq 5`;
-do
-  echo "Testing [riak${index}]...`curl -s http://33.33.33.${index}0:8098/ping`"
-done
+SEED_CONTAINER_ID=$(docker ps | egrep "riak01" | cut -d" " -f1)
+SEED_SSH_PORT=$(docker port "$SEED_CONTAINER_ID" 22 | cut -d ":" -f2)
+
+sshpass -p "basho" \
+  ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -o "LogLevel quiet" -p "$SEED_SSH_PORT" root@localhost \
+    riak-admin member-status
