@@ -51,6 +51,9 @@ RUN echo "vm.swappiness = 0" > /etc/sysctl.d/riak.conf && \
     echo "net.ipv4.tcp_moderate_rcvbuf = 1" >> /etc/sysctl.d/riak.conf && \
     sysctl -e -p /etc/sysctl.d/riak.conf
 
+# Make Riak's data directory a volume
+VOLUME /var/lib/riak
+
 # Open ports for ssh and Riak (HTTP)
 EXPOSE 22 8098
 
