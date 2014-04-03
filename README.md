@@ -71,6 +71,9 @@ Bringing up [riak04] and linking it to [riak01]...
 Successfully brought up [riak04]
 Bringing up [riak05] and linking it to [riak01]...
 Successfully brought up [riak05]
+
+Preparing to cluster the Riak nodes...
+
 =============================== Staged Changes ================================
 Action         Details(s)
 -------------------------------------------------------------------------------
@@ -113,9 +116,16 @@ Cluster changes committed
 ```bash
 $ make test-cluster
 ./bin/test-cluster.sh
-TRUE All nodes agree on the ring ['riak@172.17.0.2','riak@172.17.0.3',
-                                  'riak@172.17.0.4','riak@172.17.0.5',
-                                  'riak@172.17.0.6']
+================================= Membership ==================================
+Status     Ring    Pending    Node
+-------------------------------------------------------------------------------
+valid      87.5%     20.3%    'riak@172.17.0.2'
+valid       3.1%     20.3%    'riak@172.17.0.3'
+valid       3.1%     20.3%    'riak@172.17.0.4'
+valid       3.1%     20.3%    'riak@172.17.0.5'
+valid       3.1%     18.8%    'riak@172.17.0.6'
+-------------------------------------------------------------------------------
+Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
 ```
 
 ### Tear down cluster
