@@ -7,13 +7,9 @@ MAINTAINER Hector Castro hector@basho.com
 
 # Install dependencies
 ENV DEBIAN_FRONTEND noninteractive
-RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
 RUN apt-get update -qq && apt-get install -y \
-    logrotate \
-    openssh-server
-
-# Create run directory for sshd
-RUN mkdir -p /var/run/sshd
+    unzip \
+    logrotate
 
 # Install Riak
 ENV RIAK_VERSION 1.4.8
@@ -24,9 +20,6 @@ RUN rm /riak_$RIAK_VERSION-1_amd64.deb
 
 # Update locale
 RUN locale-gen en_US en_US.UTF-8
-
-# Set root password
-RUN echo 'root:basho' | chpasswd
 
 # Tune Riak configuration settings for the container
 RUN sed -i.bak 's/127.0.0.1/0.0.0.0/' /etc/riak/app.config && \
@@ -54,9 +47,9 @@ RUN echo "vm.swappiness = 0" > /etc/sysctl.d/riak.conf && \
 # Make Riak's data directory a volume
 VOLUME /var/lib/riak
 
-# Open ports for ssh and Riak (HTTP)
-EXPOSE 22 8098
 
 ADD bin/boot.sh /
 
+# Open ports for HTTP and Protocol Buffers
+EXPOSE 8098 8087
 CMD ["/bin/bash", "/boot.sh"]

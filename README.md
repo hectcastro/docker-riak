@@ -29,23 +29,6 @@ $ for i in {49000..49900}; do
 done
 ```
 
-### Install `sshpass`
-
-On most UNIX operating systems `sshpass` is included in the package
-repositories:
-
-```bash
-$ sudo apt-get install sshpass
-```
-
-For Mac OS X, [Homebrew](http://brew.sh/) does not include a formula for
-`sshpass`. The following [gist](https://gist.github.com/hectcastro/9939162)
-includes a formula for `sshpass`:
-
-```bash
-$ brew install https://gist.githubusercontent.com/hectcastro/9939162/raw/2650be426e8c8b1a47acd7097c9d1eb41ddfc2af/sshpass.rb
-```
-
 ## Running
 
 ### Clone repository and build Riak container
@@ -61,54 +44,16 @@ $ make riak-container
 ```bash
 $ make start-cluster
 ./bin/start-cluster.sh
-Bringing up [riak01]...
-Successfully brought up [riak01]
-Bringing up [riak02] and linking it to [riak01]...
-Successfully brought up [riak02]
-Bringing up [riak03] and linking it to [riak01]...
-Successfully brought up [riak03]
-Bringing up [riak04] and linking it to [riak01]...
-Successfully brought up [riak04]
-Bringing up [riak05] and linking it to [riak01]...
-Successfully brought up [riak05]
 
-Preparing to cluster the Riak nodes...
+Bringing up cluster nodes:
 
-=============================== Staged Changes ================================
-Action         Details(s)
--------------------------------------------------------------------------------
-join           'riak@172.17.0.3'
-join           'riak@172.17.0.4'
-join           'riak@172.17.0.5'
-join           'riak@172.17.0.6'
--------------------------------------------------------------------------------
+  Successfully brought up [riak01]
+  Successfully brought up [riak02]
+  Successfully brought up [riak03]
+  Successfully brought up [riak04]
+  Successfully brought up [riak05]
 
-
-NOTE: Applying these changes will result in 1 cluster transition
-
-###############################################################################
-                         After cluster transition 1/1
-###############################################################################
-
-================================= Membership ==================================
-Status     Ring    Pending    Node
--------------------------------------------------------------------------------
-valid     100.0%     20.3%    'riak@172.17.0.2'
-valid       0.0%     20.3%    'riak@172.17.0.3'
-valid       0.0%     20.3%    'riak@172.17.0.4'
-valid       0.0%     20.3%    'riak@172.17.0.5'
-valid       0.0%     18.8%    'riak@172.17.0.6'
--------------------------------------------------------------------------------
-Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
-
-Transfers resulting from cluster changes: 51
-  13 transfers from 'riak@172.17.0.2' to 'riak@172.17.0.4'
-  13 transfers from 'riak@172.17.0.2' to 'riak@172.17.0.3'
-  12 transfers from 'riak@172.17.0.2' to 'riak@172.17.0.6'
-  13 transfers from 'riak@172.17.0.2' to 'riak@172.17.0.5'
-
-Commit these cluster changes? (y/n): y
-Cluster changes committed
+Please wait approximately 30 seconds for the cluster to stabilize.
 ```
 
 ### Test cluster
@@ -116,16 +61,187 @@ Cluster changes committed
 ```bash
 $ make test-cluster
 ./bin/test-cluster.sh
-================================= Membership ==================================
-Status     Ring    Pending    Node
--------------------------------------------------------------------------------
-valid      87.5%     20.3%    'riak@172.17.0.2'
-valid       3.1%     20.3%    'riak@172.17.0.3'
-valid       3.1%     20.3%    'riak@172.17.0.4'
-valid       3.1%     20.3%    'riak@172.17.0.5'
-valid       3.1%     18.8%    'riak@172.17.0.6'
--------------------------------------------------------------------------------
-Valid:5 / Leaving:0 / Exiting:0 / Joining:0 / Down:0
+{
+    "basho_stats_version": "1.0.3",
+    "bitcask_version": "1.6.6-0-g230b6d6",
+    "cluster_info_version": "1.2.4",
+    "compiler_version": "4.8.1",
+    "connected_nodes": [
+        "riak@172.17.0.3",
+        "riak@172.17.0.4",
+        "riak@172.17.0.5",
+        "riak@172.17.0.6"
+    ],
+    "converge_delay_last": 42780,
+    "converge_delay_max": 91494,
+    "converge_delay_mean": 46533,
+    "converge_delay_min": 31574,
+    "coord_redirs_total": 0,
+    "cpu_avg1": 133,
+    "cpu_avg15": 79,
+    "cpu_avg5": 125,
+    "cpu_nprocs": 860,
+    "crypto_version": "2.1",
+    "dropped_vnode_requests_total": 0,
+    "erlang_js_version": "1.2.2",
+    "erlydtl_version": "0.7.0",
+    "executing_mappers": 0,
+    "goldrush_version": "0.1.5",
+    "gossip_received": 115,
+    "handoff_timeouts": 0,
+    "ignored_gossip_total": 0,
+    "index_fsm_active": 0,
+    "index_fsm_create": 0,
+    "index_fsm_create_error": 0,
+    "inets_version": "5.9",
+    "kernel_version": "2.15.1",
+    "lager_version": "2.0.1",
+    "leveldb_read_block_error": "undefined",
+    "list_fsm_active": 0,
+    "list_fsm_create": 0,
+    "list_fsm_create_error": 0,
+    "mem_allocated": 961228800,
+    "mem_total": 1048956928,
+    "memory_atom": 504409,
+    "memory_atom_used": 488793,
+    "memory_binary": 86568,
+    "memory_code": 10776950,
+    "memory_ets": 5417656,
+    "memory_processes": 10152678,
+    "memory_processes_used": 10152664,
+    "memory_system": 50191362,
+    "memory_total": 60344040,
+    "merge_index_version": "1.3.2-0-gcb38ee7",
+    "mochiweb_version": "1.5.1p6",
+    "node_get_fsm_active": 0,
+    "node_get_fsm_active_60s": 0,
+    "node_get_fsm_in_rate": 0,
+    "node_get_fsm_objsize_100": 0,
+    "node_get_fsm_objsize_95": 0,
+    "node_get_fsm_objsize_99": 0,
+    "node_get_fsm_objsize_mean": 0,
+    "node_get_fsm_objsize_median": 0,
+    "node_get_fsm_out_rate": 0,
+    "node_get_fsm_rejected": 0,
+    "node_get_fsm_rejected_60s": 0,
+    "node_get_fsm_rejected_total": 0,
+    "node_get_fsm_siblings_100": 0,
+    "node_get_fsm_siblings_95": 0,
+    "node_get_fsm_siblings_99": 0,
+    "node_get_fsm_siblings_mean": 0,
+    "node_get_fsm_siblings_median": 0,
+    "node_get_fsm_time_100": 0,
+    "node_get_fsm_time_95": 0,
+    "node_get_fsm_time_99": 0,
+    "node_get_fsm_time_mean": 0,
+    "node_get_fsm_time_median": 0,
+    "node_gets": 0,
+    "node_gets_total": 0,
+    "node_put_fsm_active": 0,
+    "node_put_fsm_active_60s": 0,
+    "node_put_fsm_in_rate": 0,
+    "node_put_fsm_out_rate": 0,
+    "node_put_fsm_rejected": 0,
+    "node_put_fsm_rejected_60s": 0,
+    "node_put_fsm_rejected_total": 0,
+    "node_put_fsm_time_100": 0,
+    "node_put_fsm_time_95": 0,
+    "node_put_fsm_time_99": 0,
+    "node_put_fsm_time_mean": 0,
+    "node_put_fsm_time_median": 0,
+    "node_puts": 0,
+    "node_puts_total": 0,
+    "nodename": "riak@172.17.0.2",
+    "os_mon_version": "2.2.9",
+    "pbc_active": 0,
+    "pbc_connects": 0,
+    "pbc_connects_total": 0,
+    "pipeline_active": 0,
+    "pipeline_create_count": 0,
+    "pipeline_create_error_count": 0,
+    "pipeline_create_error_one": 0,
+    "pipeline_create_one": 0,
+    "postcommit_fail": 0,
+    "precommit_fail": 0,
+    "public_key_version": "0.15",
+    "read_repairs": 0,
+    "read_repairs_total": 0,
+    "rebalance_delay_last": 0,
+    "rebalance_delay_max": 0,
+    "rebalance_delay_mean": 0,
+    "rebalance_delay_min": 0,
+    "rejected_handoffs": 0,
+    "riak_api_version": "1.4.4-0-g395e6fd",
+    "riak_control_version": "1.4.4-0-g9a74e57",
+    "riak_core_stat_ts": 1396648354,
+    "riak_core_version": "1.4.4",
+    "riak_kv_stat_ts": 1396648353,
+    "riak_kv_version": "1.4.8-0-g7545390",
+    "riak_kv_vnodeq_max": 0,
+    "riak_kv_vnodeq_mean": 0,
+    "riak_kv_vnodeq_median": 0,
+    "riak_kv_vnodeq_min": 0,
+    "riak_kv_vnodeq_total": 0,
+    "riak_kv_vnodes_running": 54,
+    "riak_pipe_stat_ts": 1396648353,
+    "riak_pipe_version": "1.4.4-0-g7f390f3",
+    "riak_pipe_vnodeq_max": 0,
+    "riak_pipe_vnodeq_mean": 0,
+    "riak_pipe_vnodeq_median": 0,
+    "riak_pipe_vnodeq_min": 0,
+    "riak_pipe_vnodeq_total": 0,
+    "riak_pipe_vnodes_running": 39,
+    "riak_search_version": "1.4.8-0-gbe6e4ed",
+    "riak_sysmon_version": "1.1.3",
+    "ring_creation_size": 64,
+    "ring_members": [
+        "riak@172.17.0.2",
+        "riak@172.17.0.3",
+        "riak@172.17.0.4",
+        "riak@172.17.0.5",
+        "riak@172.17.0.6"
+    ],
+    "ring_num_partitions": 64,
+    "ring_ownership": "[{'riak@172.17.0.2',16},\n {'riak@172.17.0.3',12},\n {'riak@172.17.0.4',12},\n {'riak@172.17.0.5',12},\n {'riak@172.17.0.6',12}]",
+    "rings_reconciled": 76,
+    "rings_reconciled_total": 88,
+    "runtime_tools_version": "1.8.8",
+    "sasl_version": "2.2.1",
+    "sidejob_version": "0.2.0",
+    "ssl_version": "5.0.1",
+    "stdlib_version": "1.18.1",
+    "storage_backend": "riak_kv_bitcask_backend",
+    "syntax_tools_version": "1.6.8",
+    "sys_driver_version": "2.0",
+    "sys_global_heaps_size": 0,
+    "sys_heap_type": "private",
+    "sys_logical_processors": 2,
+    "sys_otp_release": "R15B01",
+    "sys_process_count": 1250,
+    "sys_smp_support": true,
+    "sys_system_architecture": "x86_64-unknown-linux-gnu",
+    "sys_system_version": "Erlang R15B01 (erts-5.9.1) [source] [64-bit] [smp:2:2] [async-threads:64] [kernel-poll:true]",
+    "sys_thread_pool_size": 64,
+    "sys_threads_enabled": true,
+    "sys_wordsize": 8,
+    "vnode_gets": 0,
+    "vnode_gets_total": 0,
+    "vnode_index_deletes": 0,
+    "vnode_index_deletes_postings": 0,
+    "vnode_index_deletes_postings_total": 0,
+    "vnode_index_deletes_total": 0,
+    "vnode_index_reads": 0,
+    "vnode_index_reads_total": 0,
+    "vnode_index_refreshes": 0,
+    "vnode_index_refreshes_total": 0,
+    "vnode_index_writes": 0,
+    "vnode_index_writes_postings": 0,
+    "vnode_index_writes_postings_total": 0,
+    "vnode_index_writes_total": 0,
+    "vnode_puts": 0,
+    "vnode_puts_total": 0,
+    "webmachine_version": "1.10.4-0-gfcff795"
+}
 ```
 
 ### Tear down cluster
