@@ -14,9 +14,9 @@ RUN apt-get update -qq && apt-get install -y \
 # Install Riak
 ENV RIAK_VERSION 1.4.8
 ENV RIAK_SHORT_VERSION 1.4
-ADD http://s3.amazonaws.com/downloads.basho.com/riak/$RIAK_SHORT_VERSION/$RIAK_VERSION/ubuntu/precise/riak_$RIAK_VERSION-1_amd64.deb /
-RUN dpkg -i /riak_$RIAK_VERSION-1_amd64.deb
-RUN rm /riak_$RIAK_VERSION-1_amd64.deb
+ADD http://s3.amazonaws.com/downloads.basho.com/riak/${RIAK_SHORT_VERSION}/${RIAK_VERSION}/ubuntu/precise/riak_${RIAK_VERSION}-1_amd64.deb /
+RUN (cd / && dpkg -i "riak_${RIAK_VERSION}-1_amd64.deb")
+RUN rm "/riak_${RIAK_VERSION}-1_amd64.deb"
 
 # Update locale
 RUN locale-gen en_US en_US.UTF-8
@@ -44,12 +44,13 @@ RUN echo "vm.swappiness = 0" > /etc/sysctl.d/riak.conf && \
     echo "net.ipv4.tcp_moderate_rcvbuf = 1" >> /etc/sysctl.d/riak.conf && \
     sysctl -e -p /etc/sysctl.d/riak.conf
 
-# Make Riak's data directory a volume
+# Make Riak's data and log directories volumes
 VOLUME /var/lib/riak
-
+VOLUME /var/log/riak
 
 ADD bin/boot.sh /
 
 # Open ports for HTTP and Protocol Buffers
 EXPOSE 8098 8087
+
 CMD ["/bin/bash", "/boot.sh"]
