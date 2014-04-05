@@ -41,13 +41,15 @@ $ make riak-container
 
 ### Environmental variables
 
+- `DOCKER_RIAK_CLUSTER_SIZE` – The number of nodes in your Riak cluster
+  (default: `5`)
 - `DOCKER_RIAK_DEBUG` – A flag to `set -x` on the cluster management scripts
   (default: `false`).
 
 ### Launch cluster
 
 ```bash
-$ make start-cluster
+$ DOCKER_RIAK_CLUSTER_SIZE=5 make start-cluster
 ./bin/start-cluster.sh
 
 Bringing up cluster nodes:

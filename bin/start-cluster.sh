@@ -6,6 +6,8 @@ if env | grep -q "DOCKER_RIAK_DEBUG"; then
   set -x
 fi
 
+DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
+
 if docker ps | grep "hectcastro/riak" >/dev/null; then
   echo ""
   echo "It looks like you already have some containers running."
@@ -22,12 +24,14 @@ echo
 echo "Bringing up cluster nodes:"
 echo
 
-for index in $(seq 1 5);
+for index in $(seq "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
-  if [ "$index" -gt "1" ] ; then
-    docker run -P --name "riak0${index}" --link riak01:seed -d hectcastro/riak > /dev/null 2>&1
+  if [ "${index}" -gt "1" ] ; then
+    docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
+           -P --name "riak0${index}" --link riak01:seed -d hectcastro/riak > /dev/null 2>&1
   else
-    docker run -P --name "riak0${index}" -d hectcastro/riak > /dev/null 2>&1
+    docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
+           -P --name "riak0${index}" -d hectcastro/riak > /dev/null 2>&1
   fi
 
   CONTAINER_ID=$(docker ps | egrep "riak0${index}[^/]" | cut -d" " -f1)

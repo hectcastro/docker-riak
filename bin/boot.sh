@@ -21,7 +21,7 @@ if env | grep -q "SEED_PORT_8098_TCP_ADDR"; then
 fi
 
 # Are we the last node to join?
-if riak-admin member-status | grep "joining" | wc -l | grep -q 4; then
+if riak-admin member-status | egrep "joining|valid" | wc -l | grep -q "${DOCKER_RIAK_CLUSTER_SIZE}"; then
   riak-admin cluster plan && riak-admin cluster commit
 fi
 

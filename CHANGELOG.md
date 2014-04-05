@@ -2,6 +2,7 @@
 
 * Remove SSH dependency.
 * Add ability to automatically cluster nodes.
+* Add ability to specify cluster size via `DOCKER_RIAK_CLUSTER_SIZE`.
 * Add ability to debug cluster management scripts with `DOCKER_RIAK_DEBUG`.
 
 ## 0.2.0
