@@ -1,7 +1,10 @@
 #! /bin/bash
 
 set -e
-# set -x
+
+if env | grep -q "DOCKER_RIAK_DEBUG"; then
+  set -x
+fi
 
 for container in $(docker ps | grep "hectcastro/riak" | cut -d" " -f1);
 do

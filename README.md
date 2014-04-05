@@ -39,6 +39,11 @@ $ cd docker-riak
 $ make riak-container
 ```
 
+### Environmental variables
+
+- `DOCKER_RIAK_DEBUG` – A flag to `set -x` on the cluster management scripts
+  (default: `false`).
+
 ### Launch cluster
 
 ```bash
