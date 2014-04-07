@@ -1,3 +1,10 @@
+## 0.3.0
+
+* Remove SSH dependency.
+* Add ability to automatically cluster nodes.
+* Add ability to specify cluster size via `DOCKER_RIAK_CLUSTER_SIZE`.
+* Add ability to debug cluster management scripts with `DOCKER_RIAK_DEBUG`.
+
 ## 0.2.0
 
 * Replace Pipework with Docker 0.6.5+ container linking.
