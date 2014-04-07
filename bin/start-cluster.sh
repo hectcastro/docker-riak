@@ -24,11 +24,12 @@ echo
 echo "Bringing up cluster nodes:"
 echo
 
-for index in $(seq -w "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
+for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
   if [ "${index}" -gt "1" ] ; then
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
-           -P --name "riak${index}" --link riak01:seed -d hectcastro/riak > /dev/null 2>&1
+           -P --name "riak${index}" --link "riak01:seed" \
+           -d hectcastro/riak > /dev/null 2>&1
   else
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
            -P --name "riak${index}" -d hectcastro/riak > /dev/null 2>&1
