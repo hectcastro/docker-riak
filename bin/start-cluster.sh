@@ -24,25 +24,25 @@ echo
 echo "Bringing up cluster nodes:"
 echo
 
-for index in $(seq "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
+for index in $(seq -w "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
   if [ "${index}" -gt "1" ] ; then
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
-           -P --name "riak0${index}" --link riak01:seed -d hectcastro/riak > /dev/null 2>&1
+           -P --name "riak${index}" --link riak01:seed -d hectcastro/riak > /dev/null 2>&1
   else
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
-           -P --name "riak0${index}" -d hectcastro/riak > /dev/null 2>&1
+           -P --name "riak${index}" -d hectcastro/riak > /dev/null 2>&1
   fi
 
-  CONTAINER_ID=$(docker ps | egrep "riak0${index}[^/]" | cut -d" " -f1)
+  CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
   CONTAINER_PORT=$(docker port "${CONTAINER_ID}" 8098 | cut -d ":" -f2)
 
-  until curl -s "http://localhost:${CONTAINER_PORT}/ping" | grep "OK" >/dev/null;
+  until curl -s "http://localhost:${CONTAINER_PORT}/ping" | grep "OK" > /dev/null 2>&1;
   do
-    sleep 1
+    sleep 3
   done
 
-  echo "  Successfully brought up [riak0${index}]"
+  echo "  Successfully brought up [riak${index}]"
 done
 
 echo
