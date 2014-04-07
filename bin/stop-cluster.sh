@@ -6,9 +6,6 @@ if env | grep -q "DOCKER_RIAK_DEBUG"; then
   set -x
 fi
 
-for container in $(docker ps | grep "hectcastro/riak" | cut -d" " -f1);
-do
-  docker rm -f "${container}" > /dev/null 2>&1
-done
+docker ps | egrep "hectcastro/riak" | cut -d" " -f1 | xargs -P2 -I{} docker rm -f {} > /dev/null 2>&1
 
 echo "Stopped the cluster and cleared all of the running containers."
