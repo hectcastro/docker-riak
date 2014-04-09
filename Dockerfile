@@ -57,5 +57,4 @@ RUN rm "/riak_${RIAK_VERSION}-1_amd64.deb"
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Leverage the baseimage-docker init system
-CMD ["/sbin/my_init"]
-#CMD ["/sbin/my_init", "--quiet"]
+CMD ["/sbin/my_init", "--quiet"]
