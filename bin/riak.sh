@@ -13,5 +13,5 @@ ulimit -n 4096
 sed -i.bak "s/127.0.0.1/${IP_ADDRESS}/" /etc/riak/vm.args
 
 # Start Riak
-exec /sbin/setuser riak /usr/lib/riak/erts-5.9.1/bin/run_erl /tmp/riak /var/log/riak \
+exec /sbin/setuser riak /usr/lib/riak/$(ls /usr/lib/riak/ | grep erts)/bin/run_erl /tmp/riak /var/log/riak \
    "exec /usr/sbin/riak console"
