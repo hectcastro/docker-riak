@@ -1,8 +1,8 @@
-.PHONY: all riak-container start-cluster test-cluster stop-cluster
+.PHONY: all build riak-container start-cluster test-cluster stop-cluster
 
 all: stop-cluster riak-container start-cluster
 
-riak-container:
+build riak-container:
 	docker build -t "hectcastro/riak" .
 
 start-cluster:
