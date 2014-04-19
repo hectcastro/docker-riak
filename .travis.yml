@@ -1,0 +1,7 @@
+language: haskell
+ghc:
+  - 7.6
+install:
+  - cabal install shellcheck
+script:
+  - shellcheck $(find . -name "*.sh")

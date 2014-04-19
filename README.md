@@ -1,4 +1,4 @@
-# docker-riak
+# docker-riak [![Build Status](https://secure.travis-ci.org/hectcastro/docker-riak.png?branch=develop)](http://travis-ci.org/hectcastro/docker-riak)
 
 This is a [Docker](http://docker.io) project to bring up a local
 [Riak](https://github.com/basho/riak) cluster.
