@@ -1,3 +1,7 @@
+## 0.3.1
+
+* Add support for ShellCheck via Travis CI.
+
 ## 0.3.0
 
 * Use [phusion/baseimage](https://github.com/phusion/baseimage-docker) as the
