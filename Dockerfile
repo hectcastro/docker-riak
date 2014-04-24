@@ -1,6 +1,6 @@
 # Riak
 #
-# VERSION       0.3.0
+# VERSION       0.3.1
 
 FROM phusion/baseimage:0.9.9
 MAINTAINER Hector Castro hector@basho.com
