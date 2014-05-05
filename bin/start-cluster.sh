@@ -8,9 +8,9 @@ fi
 
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 
-if docker ps | grep "hectcastro/riak" >/dev/null; then
+if docker ps -a | grep "hectcastro/riak" >/dev/null; then
   echo ""
-  echo "It looks like you already have some containers running."
+  echo "It looks like you already have some Riak containers running."
   echo "Please take them down before attempting to bring up another"
   echo "cluster with the following command:"
   echo ""
