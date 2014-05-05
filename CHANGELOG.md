@@ -1,3 +1,7 @@
+## 0.3.2
+
+* Add better detection of an invalid cluster start state
+
 ## 0.3.1
 
 * Add support for ShellCheck via Travis CI.
