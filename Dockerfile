@@ -1,6 +1,6 @@
 # Riak
 #
-# VERSION       0.3.2
+# VERSION       0.4.0
 
 FROM phusion/baseimage:0.9.9
 MAINTAINER Hector Castro hector@basho.com
@@ -28,18 +28,6 @@ RUN sed -i.bak 's/127.0.0.1/0.0.0.0/' /etc/riak/app.config && \
     sed -i.bak 's/{reduce_js_vm_count, 6 }/{reduce_js_vm_count, 0 }/' /etc/riak/app.config && \
     sed -i.bak 's/{hook_js_vm_count, 2 }/{hook_js_vm_count, 0 }/' /etc/riak/app.config && \
     sed -i.bak "s/##+zdbbl/+zdbbl/" /etc/riak/vm.args
-
-# sysctl
-RUN echo "vm.swappiness = 0" > /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_max_syn_backlog = 40000" >> /etc/sysctl.d/riak.conf && \
-    echo "net.core.somaxconn = 40000" >> /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_sack = 1" >> /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_window_scaling = 1" >> /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_fin_timeout = 15" >> /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_keepalive_intvl = 30" >> /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_tw_reuse = 1" >> /etc/sysctl.d/riak.conf && \
-    echo "net.ipv4.tcp_moderate_rcvbuf = 1" >> /etc/sysctl.d/riak.conf && \
-    sysctl -e -p /etc/sysctl.d/riak.conf
 
 # Make Riak's data and log directories volumes
 VOLUME /var/lib/riak

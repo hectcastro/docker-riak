@@ -29,6 +29,23 @@ $ for i in {49000..49900}; do
 done
 ```
 
+### `sysctl`
+
+In order to tune the Docker host housing Riak containers, consider applying
+the following `sysctl` settings:
+
+```
+vm.swappiness = 0
+net.ipv4.tcp_max_syn_backlog = 40000
+net.core.somaxconn = 40000
+net.ipv4.tcp_sack = 1
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_fin_timeout = 15
+net.ipv4.tcp_keepalive_intvl = 30
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_moderate_rcvbuf = 1
+```
+
 ## Running
 
 ### Clone repository and build Riak image
