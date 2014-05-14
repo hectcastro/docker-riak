@@ -40,7 +40,7 @@ do
   CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
   CONTAINER_PORT=$(docker port "${CONTAINER_ID}" 8098 | cut -d ":" -f2)
 
-  until curl -s "http://localhost:${CONTAINER_PORT}/ping" | grep "OK" > /dev/null 2>&1;
+  until curl -s "http://127.0.0.1:${CONTAINER_PORT}/ping" | grep "OK" > /dev/null 2>&1;
   do
     sleep 3
   done
