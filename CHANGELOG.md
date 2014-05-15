@@ -1,4 +1,8 @@
-## 0 4.0
+## 0.4.1
+
+* Change `localhost` references to `127.0.0.1`.
+
+## 0.4.0
 
 * Remove `sysctl` specific settings from `Dockerfile`.
 
