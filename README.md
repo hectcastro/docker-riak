@@ -64,6 +64,11 @@ $ make build
   (default: `false`)
 - `DOCKER_RIAK_DEBUG` – A flag to `set -x` on the cluster management scripts
   (default: `false`)
+- `DOCKER_RIAK_BASE_HTTP_PORT` - A flag to use fixed port assignment.  
+    If set, manually forward port number `$DOCKER_RIAK_BASE_HTTP_PORT + $index` to 8098 (riak's http port) and forward `$DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET` to 8087 (riak's proto buf port).
+  (default: empty)
+- `DOCKER_RIAK_PROTO_BUF_PORT_OFFSET` - optional port offset
+  (default: `100`)
 
 ### Launch cluster
 
