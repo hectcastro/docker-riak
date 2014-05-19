@@ -33,6 +33,7 @@ port_config="-P"
 # and forward $DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET to 8087
 # DOCKER_RIAK_PROTO_BUF_PORT_OFFSET is optional and defaults to 100
 
+if [ -z "$DOCKER_RIAK_PROTO_BUF_PORT_OFFSET" ] ; then 
     pb_port_offset="100"
 else
     pb_port_offset="$DOCKER_RIAK_PROTO_BUF_PORT_OFFSET"
