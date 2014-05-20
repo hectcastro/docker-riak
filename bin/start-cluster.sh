@@ -24,12 +24,13 @@ echo
 echo "Bringing up cluster nodes:"
 echo
 
-# The default port config is -P, which means that docker with assign 
-# arbitrary ports for riak to use.  These are usually in the 49xxx range.
+# The default to let docker with assign arbitrary ports on the VM to forward to the riak containers.  
+# These are usually in the 49xxx range.
 
-port_config="-P"
+publish_http_port="8098"
+publish_pb_port="8087"
 
-# if DOCKER_RIAK_BASE_HTTP_PORT is set, then we will manually forward
+# If DOCKER_RIAK_BASE_HTTP_PORT is set, then we will manually forward
 # port number $DOCKER_RIAK_BASE_HTTP_PORT + $index to 8098
 # and forward $DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET to 8087
 # DOCKER_RIAK_PROTO_BUF_PORT_OFFSET is optional and defaults to 100
@@ -40,24 +41,27 @@ for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
 
   if [[ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]] ; then 
-    final_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
+    final_http_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
     final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
-    port_config="-p ${final_port}:8098 -p ${final_pb_port}:8087"
+    publish_http_port="${final_http_port}:8098"
+    publish_pb_port="${final_pb_port}:8087"
   fi
 
   if [ "${index}" -gt "1" ] ; then
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
-               $port_config \
+               -p $publish_http_port \
+               -p $publish_pb_port \
                --link "riak01:seed" \
                --name "riak${index}" \
                -d hectcastro/riak > /dev/null 2>&1
   else
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
-               $port_config \
+               -p $publish_http_port \
+               -p $publish_pb_port \
                --name "riak${index}" \
-               -d hectcastro/riak > /dev/null 2>&1
+               -d hectcastro/riak
   fi
 
   CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
