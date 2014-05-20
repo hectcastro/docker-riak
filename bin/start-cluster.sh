@@ -61,7 +61,7 @@ do
                -p $publish_http_port \
                -p $publish_pb_port \
                --name "riak${index}" \
-               -d hectcastro/riak
+               -d hectcastro/riak > /dev/null 2>&1
   fi
 
   CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
