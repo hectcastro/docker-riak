@@ -26,6 +26,7 @@ echo
 
 # The default port config is -P, which means that docker with assign 
 # arbitrary ports for riak to use.  These are usually in the 49xxx range.
+
 port_config="-P"
 
 # if DOCKER_RIAK_BASE_HTTP_PORT is set, then we will manually forward
@@ -33,17 +34,14 @@ port_config="-P"
 # and forward $DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET to 8087
 # DOCKER_RIAK_PROTO_BUF_PORT_OFFSET is optional and defaults to 100
 
-if [ -z "$DOCKER_RIAK_PROTO_BUF_PORT_OFFSET" ] ; then 
-    pb_port_offset="100"
-else
-    pb_port_offset="$DOCKER_RIAK_PROTO_BUF_PORT_OFFSET"
-fi
+DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
 
 for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
+
   if [[ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]] ; then 
-    final_port=$(($DOCKER_RIAK_BASE_HTTP_PORT + $index))
-    final_pb_port=$(($DOCKER_RIAK_BASE_HTTP_PORT + $index + $pb_port_offset))
+    final_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
+    final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
     port_config="-p ${final_port}:8098 -p ${final_pb_port}:8087"
   fi
 
