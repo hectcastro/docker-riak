@@ -24,17 +24,45 @@ echo
 echo "Bringing up cluster nodes:"
 echo
 
+# The default allows Docker to forward arbitrary ports on the VM for the Riak
+# containers. Ports used by default are usually in the 49xx range.
+
+publish_http_port="8098"
+publish_pb_port="8087"
+
+# If DOCKER_RIAK_BASE_HTTP_PORT is set, port number
+# $DOCKER_RIAK_BASE_HTTP_PORT + $index gets forwarded to 8098 and
+# $DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET
+# gets forwarded to 8087. DOCKER_RIAK_PROTO_BUF_PORT_OFFSET is optional and
+# defaults to 100.
+
+DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
+
 for index in $(seq -f "%02g" "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
+
+  if [[ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]] ; then 
+    final_http_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
+    final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
+    publish_http_port="${final_http_port}:8098"
+    publish_pb_port="${final_pb_port}:8087"
+  fi
+
   if [ "${index}" -gt "1" ] ; then
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
-               -P --name "riak${index}" --link "riak01:seed" \
+               -p $publish_http_port \
+               -p $publish_pb_port \
+               --link "riak01:seed" \
+               --name "riak${index}" \
                -d hectcastro/riak > /dev/null 2>&1
   else
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
-               -P --name "riak${index}" -d hectcastro/riak > /dev/null 2>&1
+               -p $publish_http_port \
+               -p $publish_pb_port \
+               --name "riak${index}" \
+               -d hectcastro/riak > /dev/null 2>&1
   fi
 
   CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)

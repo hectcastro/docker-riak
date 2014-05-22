@@ -17,10 +17,10 @@ correctly:
 $ export DOCKER_HOST="tcp://127.0.0.1:4243"
 ```
 
-**Note:** If you're using [boot2docker](https://github.com/boot2docker/boot2docker)
-ensure that you forward the virtual machine port range (`49000-49900`). This
-will allow you to interact with the containers as if they were running
-locally:
+**Note:** If you're using
+[boot2docker](https://github.com/boot2docker/boot2docker) ensure that you
+forward the virtual machine port range (`49000-49900`). If you want to set
+`DOCKER_RIAK_BASE_HTTP_PORT`, ensure that you forward that port range instead:
 
 ```bash
 $ for i in {49000..49900}; do
@@ -64,6 +64,12 @@ $ make build
   (default: `false`)
 - `DOCKER_RIAK_DEBUG` – A flag to `set -x` on the cluster management scripts
   (default: `false`)
+- `DOCKER_RIAK_BASE_HTTP_PORT` - A flag to use fixed port assignment. If set,
+  manually forward port `DOCKER_RIAK_BASE_HTTP_PORT + $index` to `8098`
+  (Riak's HTTP port) and forward
+  `DOCKER_RIAK_BASE_HTTP_PORT + $index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET`
+  to `8087` (Riak's Protocol Buffers port).
+- `DOCKER_RIAK_PROTO_BUF_PORT_OFFSET` - Optional port offset (default: `100`)
 
 ### Launch cluster
 
