@@ -24,16 +24,17 @@ echo
 echo "Bringing up cluster nodes:"
 echo
 
-# The default to let docker with assign arbitrary ports on the VM to forward to the riak containers.  
-# These are usually in the 49xxx range.
+# The default allows Docker to forward arbitrary ports on the VM for the Riak
+# containers. Ports used by default are usually in the 49xx range.
 
 publish_http_port="8098"
 publish_pb_port="8087"
 
-# If DOCKER_RIAK_BASE_HTTP_PORT is set, then we will manually forward
-# port number $DOCKER_RIAK_BASE_HTTP_PORT + $index to 8098
-# and forward $DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET to 8087
-# DOCKER_RIAK_PROTO_BUF_PORT_OFFSET is optional and defaults to 100
+# If DOCKER_RIAK_BASE_HTTP_PORT is set, port number
+# $DOCKER_RIAK_BASE_HTTP_PORT + $index gets forwarded to 8098 and
+# $DOCKER_RIAK_BASE_HTTP_PORT + $index + $DOCKER_RIAK_PROTO_BUF_PORT_OFFSET
+# gets forwarded to 8087. DOCKER_RIAK_PROTO_BUF_PORT_OFFSET is optional and
+# defaults to 100.
 
 DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
 

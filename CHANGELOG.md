@@ -1,3 +1,7 @@
+## 0.4.2
+
+* Add ability to specify more precise port assignment.
+
 ## 0.4.1
 
 * Change `localhost` references to `127.0.0.1`.
