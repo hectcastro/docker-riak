@@ -2,8 +2,8 @@
 
 if env | grep -q "DOCKER_RIAK_AUTOMATIC_CLUSTERING=1"; then
   # Join node to the cluster
-  (sleep 5; if env | grep -q "SEED_PORT_8098_TCP_ADDR"; then
-    riak-admin cluster join "riak@${SEED_PORT_8098_TCP_ADDR}" > /dev/null 2>&1
+  (sleep 5; if env | grep -q "DOCKERRIAK_RIAK1_1_PORT_8099_TCP_ADDR"; then
+    riak-admin cluster join "riak@${DOCKERRIAK_RIAK1_1_PORT_8099_TCP_ADDR}" > /dev/null 2>&1
   fi) &
 
   # Are we the last node to join?
