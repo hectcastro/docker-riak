@@ -1,3 +1,8 @@
+## 0.4.3
+
+* Fix inconsistency between `DOCKER_HOST` and host used determine if the
+  container is up.
+
 ## 0.4.2
 
 * Add ability to specify more precise port assignment.
