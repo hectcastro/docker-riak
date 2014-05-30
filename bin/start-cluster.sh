@@ -6,6 +6,7 @@ if env | grep -q "DOCKER_RIAK_DEBUG"; then
   set -x
 fi
 
+CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 
 if docker ps -a | grep "hectcastro/riak" >/dev/null; then
@@ -68,7 +69,7 @@ do
   CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
   CONTAINER_PORT=$(docker port "${CONTAINER_ID}" 8098 | cut -d ":" -f2)
 
-  until curl -s "http://127.0.0.1:${CONTAINER_PORT}/ping" | grep "OK" > /dev/null 2>&1;
+  until curl -s "http://${CLEAN_DOCKER_HOST}:${CONTAINER_PORT}/ping" | grep "OK" > /dev/null 2>&1;
   do
     sleep 3
   done
