@@ -14,7 +14,7 @@ From there, ensure that your `DOCKER_HOST` environmental variable is set
 correctly:
 
 ```bash
-$ export DOCKER_HOST="tcp://127.0.0.1:4243"
+$ export DOCKER_HOST="tcp://127.0.0.1:2375"
 ```
 
 **Note:** If you're using
