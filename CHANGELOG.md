@@ -1,3 +1,8 @@
+## 0.4.4
+
+* Default Riak version is now v1.4.9
+* Default Docker port is now `2375`.
+
 ## 0.4.3
 
 * Fix inconsistency between `DOCKER_HOST` and host used determine if the
