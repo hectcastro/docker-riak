@@ -7,7 +7,7 @@ MAINTAINER Hector Castro hector@basho.com
 
 # Environmental variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV RIAK_VERSION 1.4.8
+ENV RIAK_VERSION 1.4.9
 ENV RIAK_SHORT_VERSION 1.4
 
 # Install Riak
