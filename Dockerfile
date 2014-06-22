@@ -1,13 +1,13 @@
 # Riak
 #
-# VERSION       0.4.3
+# VERSION       0.4.4
 
 FROM phusion/baseimage:0.9.9
 MAINTAINER Hector Castro hector@basho.com
 
 # Environmental variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV RIAK_VERSION 1.4.8
+ENV RIAK_VERSION 1.4.9
 ENV RIAK_SHORT_VERSION 1.4
 
 # Install Riak
