@@ -70,11 +70,12 @@ $ make build
   `DOCKER_RIAK_BASE_HTTP_PORT + $index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET`
   to `8087` (Riak's Protocol Buffers port).
 - `DOCKER_RIAK_PROTO_BUF_PORT_OFFSET` - Optional port offset (default: `100`)
+- `DOCKER_RIAK_BACKEND` - Optional Riak backend to use (default: `riak_kv_bitcask_backend`)
 
 ### Launch cluster
 
 ```bash
-$ DOCKER_RIAK_AUTOMATIC_CLUSTERING=1 DOCKER_RIAK_CLUSTER_SIZE=5 make start-cluster
+$ DOCKER_RIAK_AUTOMATIC_CLUSTERING=1 DOCKER_RIAK_CLUSTER_SIZE=5 DOCKER_RIAK_BACKEND=riak_kv_eleveldb_backend make start-cluster
 ./bin/start-cluster.sh
 
 Bringing up cluster nodes:

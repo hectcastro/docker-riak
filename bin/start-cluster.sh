@@ -8,6 +8,7 @@ fi
 
 CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
+DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-riak_kv_bitcask_backend}
 
 if docker ps -a | grep "hectcastro/riak" >/dev/null; then
   echo ""
@@ -52,6 +53,7 @@ do
   if [ "${index}" -gt "1" ] ; then
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
+               -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
                -p $publish_http_port \
                -p $publish_pb_port \
                --link "riak01:seed" \
@@ -60,6 +62,7 @@ do
   else
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
+               -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
                -p $publish_http_port \
                -p $publish_pb_port \
                --name "riak${index}" \
