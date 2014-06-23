@@ -8,7 +8,7 @@ fi
 
 CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
-DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:"riak_kv_bitcask_backend"}
+DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-riak_kv_bitcask_backend}
 
 if docker ps -a | grep "hectcastro/riak" >/dev/null; then
   echo ""
