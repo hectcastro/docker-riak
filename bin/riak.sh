@@ -13,7 +13,7 @@ ulimit -n 4096
 sed -i.bak "s/127.0.0.1/${IP_ADDRESS}/" /etc/riak/vm.args
 
 # Ensure the desired Riak backend is set correctly
-sed -i.bak "s/riak_kv_bitcask_backend/${DOCKER_RIAK_BACKEND}/" /etc/riak/app.config
+sed -i.bak "s/storage_backend, \(.*\)}/storage_backend, ${DOCKER_RIAK_BACKEND}}/" /etc/riak/app.config
 
 # Start Riak
 exec /sbin/setuser riak "$(ls -d /usr/lib/riak/erts*)/bin/run_erl" "/tmp/riak" \
