@@ -1,3 +1,7 @@
+## 0.4.6
+
+* Default Riak version is now v1.4.10
+
 ## 0.4.5
 
 * Add support for customizing the Riak backend via `DOCKER_RIAK_BACKEND`.
