@@ -1,9 +1,9 @@
 # Riak
 #
-# VERSION       0.4.5
+# VERSION       0.4.6
 
 FROM phusion/baseimage:0.9.9
-MAINTAINER Hector Castro hector@basho.com
+MAINTAINER Hector Castro hectcastro@gmail.com
 
 # Environmental variables
 ENV DEBIAN_FRONTEND noninteractive
