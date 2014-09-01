@@ -2,7 +2,7 @@
 #
 # VERSION       0.4.6
 
-FROM phusion/baseimage:0.9.9
+FROM phusion/baseimage:0.9.13
 MAINTAINER Hector Castro hectcastro@gmail.com
 
 # Environmental variables
