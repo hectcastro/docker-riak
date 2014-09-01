@@ -1,3 +1,8 @@
+## 0.5.0
+
+* Default version of `phusion/baseimage` is now v0.9.13 (Ubuntu Trusty).
+* Add a guard that prevents cluster formation if `DOCKER_HOST` is not set.
+
 ## 0.4.6
 
 * Default Riak version is now v1.4.10.
