@@ -1,8 +1,8 @@
 # Riak
 #
-# VERSION       0.4.6
+# VERSION       0.5.0
 
-FROM phusion/baseimage:0.9.9
+FROM phusion/baseimage:0.9.13
 MAINTAINER Hector Castro hectcastro@gmail.com
 
 # Environmental variables

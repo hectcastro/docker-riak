@@ -6,6 +6,18 @@ if env | grep -q "DOCKER_RIAK_DEBUG"; then
   set -x
 fi
 
+if [ -z "${DOCKER_HOST}" ]; then
+  echo ""
+  echo "It looks like the environment variable DOCKER_HOST has not"
+  echo "been set.  The Riak cluster cannot be started unless this has"
+  echo "been set appropriately.  For example:"
+  echo ""
+  echo "  export DOCKER_HOST=\"tcp://127.0.0.1:2375\""
+  echo ""
+  
+  exit 1
+fi
+
 CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-riak_kv_bitcask_backend}
