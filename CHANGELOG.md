@@ -1,3 +1,8 @@
+## 1.0.0
+
+* Default Riak version is now v2.0.1.
+* Default version of `phusion/baseimage` is now v0.9.14.
+
 ## 0.5.0
 
 * Default version of `phusion/baseimage` is now v0.9.13 (Ubuntu Trusty).
