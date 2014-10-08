@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Fix invalid regular expression to update `DOCKER_RIAK_BACKEND`.
+
 ## 1.0.0
 
 * Default Riak version is now v2.0.1.
