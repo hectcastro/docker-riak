@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Add support for interacting with Docker over a UNIX socket.
+
 ## 1.0.1
 
 * Fix invalid regular expression to update `DOCKER_RIAK_BACKEND`.

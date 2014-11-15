@@ -18,7 +18,12 @@ if [ -z "${DOCKER_HOST}" ]; then
   exit 1
 fi
 
-CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
+if [[ "${DOCKER_HOST}" == unix://* ]]; then
+  CLEAN_DOCKER_HOST="localhost"
+else
+  CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
+fi
+
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-bitcask}
 
