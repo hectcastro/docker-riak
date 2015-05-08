@@ -1,3 +1,7 @@
+## 1.0.4
+
+* Fix reference to PackageCloud repository setup script.
+
 ## 1.0.3
 
 * Default Riak version is now v2.0.2.
