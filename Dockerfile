@@ -1,6 +1,6 @@
 # Riak
 #
-# VERSION       1.0.3
+# VERSION       1.0.4
 
 FROM phusion/baseimage:0.9.14
 MAINTAINER Hector Castro hectcastro@gmail.com
@@ -17,7 +17,7 @@ RUN apt-get update -qq && apt-get install -y software-properties-common && \
     apt-get install -y oracle-java7-installer
 
 # Install Riak
-RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb | bash
+RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | bash
 RUN apt-get install -y riak=${RIAK_VERSION}
 
 # Setup the Riak service
