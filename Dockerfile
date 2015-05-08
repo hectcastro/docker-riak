@@ -17,7 +17,7 @@ RUN apt-get update -qq && apt-get install -y software-properties-common && \
     apt-get install -y oracle-java7-installer
 
 # Install Riak
-RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb | bash
+RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | bash
 RUN apt-get install -y riak=${RIAK_VERSION}
 
 # Setup the Riak service
