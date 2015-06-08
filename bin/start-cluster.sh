@@ -59,7 +59,7 @@ DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
 
 for index in $(seq "1" "${DOCKER_RIAK_CLUSTER_SIZE}");
 do
-  index=$(printf "%.2d" $index)
+  index=$(printf "%.2d" "$index")
   if [[ ! -z $DOCKER_RIAK_BASE_HTTP_PORT ]] ; then
     final_http_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index))
     final_pb_port=$((DOCKER_RIAK_BASE_HTTP_PORT + index + DOCKER_RIAK_PROTO_BUF_PORT_OFFSET))
@@ -85,7 +85,7 @@ do
                --name "riak${index}" \
                -d hectcastro/riak > /dev/null 2>&1
   fi
-  echo -n "Starting riak${index}:"
+  echo -n "Starting riak${index}: "
 
   CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
   CONTAINER_PORT=$(docker port "${CONTAINER_ID}" 8098 | cut -d ":" -f2)
@@ -96,7 +96,7 @@ do
     sleep 3
   done
 
-  echo "  Complete"
+  echo " Complete"
 done
 
 echo
