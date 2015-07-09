@@ -1,3 +1,8 @@
+## 1.0.5
+
+* Use `env` to determine location of `bash`.
+* Provide better progress feedback during cluster creation.
+
 ## 1.0.4
 
 * Fix reference to PackageCloud repository setup script.
