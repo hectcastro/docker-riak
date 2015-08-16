@@ -1,3 +1,7 @@
+## 1.0.6
+
+* Fix container ID extraction by container name.
+
 ## 1.0.5
 
 * Use `env` to determine location of `bash`.
