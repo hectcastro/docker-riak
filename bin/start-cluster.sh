@@ -87,7 +87,7 @@ do
   fi
   echo -n "Starting riak${index}: "
 
-  CONTAINER_ID=$(docker ps | egrep "riak${index}[^/]" | cut -d" " -f1)
+  CONTAINER_ID=$(docker ps | grep "riak${index}" | cut -d" " -f1)
   CONTAINER_PORT=$(docker port "${CONTAINER_ID}" 8098 | cut -d ":" -f2)
 
   until curl -m 1 -s "http://${CLEAN_DOCKER_HOST}:${CONTAINER_PORT}/ping" | grep "OK" > /dev/null 2>&1;
