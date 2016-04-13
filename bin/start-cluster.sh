@@ -26,6 +26,7 @@ fi
 
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-bitcask}
+DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY:-off}
 
 if docker ps -a | grep "hectcastro/riak" >/dev/null; then
   echo ""
@@ -71,6 +72,7 @@ do
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
+               -e "DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY}" \
                -p $publish_http_port \
                -p $publish_pb_port \
                --link "riak01:seed" \
@@ -80,6 +82,7 @@ do
     docker run -e "DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE}" \
                -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
+               -e "DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY}" \
                -p $publish_http_port \
                -p $publish_pb_port \
                --name "riak${index}" \
