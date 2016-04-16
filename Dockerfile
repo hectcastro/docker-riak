@@ -9,16 +9,21 @@ MAINTAINER Hector Castro hectcastro@gmail.com
 ENV DEBIAN_FRONTEND noninteractive
 ENV RIAK_VERSION 2.0.2-1
 
-# Install Java 7
-RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
-RUN apt-get update -qq && apt-get install -y software-properties-common && \
+RUN \
+
+    # Install Java 7
+    sed -i.bak 's/main$/main universe/' /etc/apt/sources.list && \
+    apt-get update -qq && apt-get install -y software-properties-common && \
     apt-add-repository ppa:webupd8team/java -y && apt-get update -qq && \
     echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get install -y oracle-java7-installer
+    apt-get install -y oracle-java7-installer && \
 
-# Install Riak
-RUN curl https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | bash
-RUN apt-get install -y riak=${RIAK_VERSION}
+    # Install Riak
+    curl https://packagecloud.io/install/repositories/basho/riak/script.deb.sh | bash && \
+    apt-get install -y riak=${RIAK_VERSION} && \
+
+    # Cleanup
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Setup the Riak service
 RUN mkdir -p /etc/service/riak
@@ -45,9 +50,6 @@ EXPOSE 8098 8087
 # Enable insecure SSH key
 # See: https://github.com/phusion/baseimage-docker#using_the_insecure_key_for_one_container_only
 RUN /usr/sbin/enable_insecure_key
-
-# Cleanup
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Leverage the baseimage-docker init system
 CMD ["/sbin/my_init", "--quiet"]
