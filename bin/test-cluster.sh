@@ -6,10 +6,14 @@ if env | grep -q "DOCKER_RIAK_DEBUG"; then
   set -x
 fi
 
-if [[ "${DOCKER_HOST}" == unix://* ]]; then
-  CLEAN_DOCKER_HOST="localhost"
-else
-  CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
+CLEAN_DOCKER_HOST="localhost"
+
+if [ "${DOCKER_HOST}" ]; then
+  if [[ "${DOCKER_HOST}" == unix://* ]]; then
+    CLEAN_DOCKER_HOST="localhost"
+  else
+    CLEAN_DOCKER_HOST=$(echo "${DOCKER_HOST}" | cut -d'/' -f3 | cut -d':' -f1)
+  fi
 fi
 
 RANDOM_CONTAINER_ID=$(docker ps | egrep "hectcastro/riak" | cut -d" " -f1 | perl -MList::Util=shuffle -e'print shuffle<>' | head -n1)
