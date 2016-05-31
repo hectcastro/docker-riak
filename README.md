@@ -151,7 +151,7 @@ Download the insecure key, alter its permissions, and use it to SSH into the
 container via its IP address:
 
 ```bash
-$ curl -o insecure_key -fSL https://github.com/phusion/baseimage-docker/raw/master/image/insecure_key
+$ curl -o insecure_key -fSL https://github.com/phusion/baseimage-docker/raw/master/image/services/sshd/keys/insecure_key
 $ chmod 600 insecure_key
 $ ssh -i insecure_key root@172.17.0.2
 ```
