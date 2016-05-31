@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
 if env | grep -q "DOCKER_RIAK_AUTOMATIC_CLUSTERING=1"; then
   # Join node to the cluster
