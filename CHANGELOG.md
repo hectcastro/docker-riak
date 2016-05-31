@@ -1,3 +1,9 @@
+## 1.1.1
+
+* Weaken `DOCKER_HOST` guard for environments that do not use `DOCKER_HOST`.
+* Fix URL for container image SSH key in `README`.
+* Resolve Shellcheck issues in Bash scripts.
+
 ## 1.1.0
 
 * Reduce overall image size.
