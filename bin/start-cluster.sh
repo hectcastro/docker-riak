@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
 function start_exited_riak_containers {
-  containers=`docker ps -a -f "status=exited" --format "table {{.Names}}\t{{.ID}}\t{{.Image}}" | grep "hectcastro/riak" || :`
+  containers=$(docker ps -a -f "status=exited" --format "table {{.Names}}\t{{.ID}}\t{{.Image}}" | grep "hectcastro/riak" || :)
   if [[ ! -z $containers ]]; then
     echo "Bringing up stopped docker instances."
     echo "$containers" | sort -V | while read -r container; 
     do
-      CONTAINER_ID=`echo $container | awk '{print $2}'`
-      CONTAINER_NAME=`echo $container | awk '{print $1}'`
+      CONTAINER_ID=$(echo "$container" | awk '{print $2}')
+      CONTAINER_NAME=$(echo "$container" | awk '{print $1}')
       echo -n "Starting ${CONTAINER_NAME}..."
-      docker start ${CONTAINER_ID} > /dev/null 2>&1  
+      docker start "${CONTAINER_ID}" > /dev/null 2>&1  
       echo " Completed"
     done
 
