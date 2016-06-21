@@ -85,11 +85,11 @@ $ DOCKER_RIAK_AUTOMATIC_CLUSTERING=1 DOCKER_RIAK_CLUSTER_SIZE=5 DOCKER_RIAK_BACK
 
 Bringing up cluster nodes:
 
-  Successfully brought up [riak01]
-  Successfully brought up [riak02]
-  Successfully brought up [riak03]
-  Successfully brought up [riak04]
-  Successfully brought up [riak05]
+Starting riak01..... Completed
+Starting riak02..... Completed
+Starting riak03..... Completed
+Starting riak04..... Completed
+Starting riak05..... Completed
 
 Please wait approximately 30 seconds for the cluster to stabilize.
 ```
@@ -164,10 +164,18 @@ $ ssh -i insecure_key root@172.17.0.2
 [boot2docker](https://github.com/boot2docker/boot2docker), ensure that you're
 issuing the SSH command from within the virtual machine running `boot2docker`.
 
-## Destroying
+## Stopping
 
 ```bash
 $ make stop-cluster
 ./bin/stop-cluster.sh
+Stopped all of the running containers.
+```
+
+## Destroying
+
+```bash
+$ make remove-cluster
+./bin/remove-cluster.sh
 Stopped the cluster and cleared all of the running containers.
 ```
