@@ -13,3 +13,6 @@ test-cluster:
 
 stop-cluster:
 	./bin/stop-cluster.sh
+
+remove-cluster:
+	./bin/remove-cluster.sh
