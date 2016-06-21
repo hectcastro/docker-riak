@@ -1,3 +1,9 @@
+## 2.0.0
+
+* Introduce new management script to remove cluster entirely.
+* Alter `stop-cluster` script so that it uses `docker stop`.
+* Add support to `start-cluster` so that it can handle the two conditions above.
+
 ## 1.1.1
 
 * Weaken `DOCKER_HOST` guard for environments that do not use `DOCKER_HOST`.
