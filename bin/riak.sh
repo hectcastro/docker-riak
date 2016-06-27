@@ -7,7 +7,7 @@ chown riak:riak /var/lib/riak /var/log/riak
 chmod 755 /var/lib/riak /var/log/riak
 
 # Open file descriptor limit
-ulimit -n 4096
+ulimit -n 65536
 
 # Ensure the Erlang node name is set correctly
 sed -i.bak "s/riak@127.0.0.1/riak@${IP_ADDRESS}/" /etc/riak/riak.conf
