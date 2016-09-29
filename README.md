@@ -76,6 +76,7 @@ $ make build
 - `DOCKER_RIAK_PROTO_BUF_PORT_OFFSET` - Optional port offset (default: `100`)
 - `DOCKER_RIAK_BACKEND` - Optional Riak backend to use (default: `bitcask`)
 - `DOCKER_RIAK_STRONG_CONSISTENCY` - Enables strong consistency subsystem (values: `on` or `off`, default: `off`)
+- `DOCKER_RIAK_SEARCH` - Enables search (values: `on` or `off`, default: `off`)
 
 ### Launch cluster
 

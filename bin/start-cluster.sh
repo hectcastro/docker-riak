@@ -4,12 +4,12 @@ function start_exited_riak_containers {
   containers=$(docker ps -a -f "status=exited" --format "table {{.Names}}\t{{.ID}}\t{{.Image}}" | grep "hectcastro/riak" || :)
   if [[ ! -z $containers ]]; then
     echo "Bringing up stopped docker instances."
-    echo "$containers" | sort -V | while read -r container; 
+    echo "$containers" | sort -V | while read -r container;
     do
       CONTAINER_ID=$(echo "$container" | awk '{print $2}')
       CONTAINER_NAME=$(echo "$container" | awk '{print $1}')
       echo -n "Starting ${CONTAINER_NAME}..."
-      docker start "${CONTAINER_ID}" > /dev/null 2>&1  
+      docker start "${CONTAINER_ID}" > /dev/null 2>&1
       echo " Completed"
     done
 
@@ -20,7 +20,7 @@ function start_exited_riak_containers {
 }
 
 function start_new_riak_cluter {
-  
+
   # The default allows Docker to forward arbitrary ports on the VM for the Riak
   # containers. Ports used by default are usually in the 49xx range.
 
@@ -34,7 +34,7 @@ function start_new_riak_cluter {
   # defaults to 100.
 
   DOCKER_RIAK_PROTO_BUF_PORT_OFFSET=${DOCKER_RIAK_PROTO_BUF_PORT_OFFSET:-100}
-  
+
   echo
   echo "Bringing up cluster nodes:"
   echo
@@ -54,6 +54,7 @@ function start_new_riak_cluter {
                  -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                  -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
                  -e "DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY}" \
+                 -e "DOCKER_RIAK_SEARCH=${DOCKER_RIAK_SEARCH}" \
                  -p $publish_http_port \
                  -p $publish_pb_port \
                  --link "riak01:seed" \
@@ -64,6 +65,7 @@ function start_new_riak_cluter {
                  -e "DOCKER_RIAK_AUTOMATIC_CLUSTERING=${DOCKER_RIAK_AUTOMATIC_CLUSTERING}" \
                  -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
                  -e "DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY}" \
+                 -e "DOCKER_RIAK_SEARCH=${DOCKER_RIAK_SEARCH}" \
                  -p $publish_http_port \
                  -p $publish_pb_port \
                  --name "riak${index}" \
@@ -107,6 +109,7 @@ fi
 DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-bitcask}
 DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY:-off}
+DOCKER_RIAK_SEARCH=${DOCKER_RIAK_SEARCH:-off}
 
 if docker ps -a | grep "hectcastro/riak" >/dev/null; then
   echo ""
