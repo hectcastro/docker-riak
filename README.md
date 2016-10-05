@@ -77,6 +77,7 @@ $ make build
 - `DOCKER_RIAK_BACKEND` - Optional Riak backend to use (default: `bitcask`)
 - `DOCKER_RIAK_STRONG_CONSISTENCY` - Enables strong consistency subsystem (values: `on` or `off`, default: `off`)
 - `DOCKER_RIAK_SEARCH` - Enables search (values: `on` or `off`, default: `off`)
+- `DOCKER_RIAK_SERVICE` - Runs Riak as an runit service (values: `1` or `0`, default: `1`). If `0`, Riak will simply be run as a background process, and will not automatically restart if killed.
 
 ### Launch cluster
 

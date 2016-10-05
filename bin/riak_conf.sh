@@ -20,7 +20,3 @@ sed -i.bak "s/## strong_consistency = \(.*\)/strong_consistency = ${DOCKER_RIAK_
 
 # Ensure the search property is set correctly
 sed -i.bak "s/search = \(.*\)/search = ${DOCKER_RIAK_SEARCH}/" /etc/riak/riak.conf
-
-# Start Riak
-exec /sbin/setuser riak "$(ls -d /usr/lib/riak/erts*)/bin/run_erl" "/tmp/riak" \
-   "/var/log/riak" "exec /usr/sbin/riak console"
