@@ -55,6 +55,7 @@ function start_new_riak_cluter {
                  -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
                  -e "DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY}" \
                  -e "DOCKER_RIAK_SEARCH=${DOCKER_RIAK_SEARCH}" \
+                 -e "DOCKER_RIAK_SERVICE=${DOCKER_RIAK_SERVICE}" \
                  -p $publish_http_port \
                  -p $publish_pb_port \
                  --link "riak01:seed" \
@@ -66,6 +67,7 @@ function start_new_riak_cluter {
                  -e "DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND}" \
                  -e "DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY}" \
                  -e "DOCKER_RIAK_SEARCH=${DOCKER_RIAK_SEARCH}" \
+                 -e "DOCKER_RIAK_SERVICE=${DOCKER_RIAK_SERVICE}" \
                  -p $publish_http_port \
                  -p $publish_pb_port \
                  --name "riak${index}" \
@@ -110,6 +112,7 @@ DOCKER_RIAK_CLUSTER_SIZE=${DOCKER_RIAK_CLUSTER_SIZE:-5}
 DOCKER_RIAK_BACKEND=${DOCKER_RIAK_BACKEND:-bitcask}
 DOCKER_RIAK_STRONG_CONSISTENCY=${DOCKER_RIAK_STRONG_CONSISTENCY:-off}
 DOCKER_RIAK_SEARCH=${DOCKER_RIAK_SEARCH:-off}
+DOCKER_RIAK_SERVICE=${DOCKER_RIAK_SERVICE:-1}
 
 if docker ps -a | grep "hectcastro/riak" >/dev/null; then
   echo ""

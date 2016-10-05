@@ -25,9 +25,12 @@ RUN \
     # Cleanup
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Setup the Riak service
-RUN mkdir -p /etc/service/riak
-ADD bin/riak.sh /etc/service/riak/run
+# Setup runtime riak.conf changes
+ADD bin/riak_conf.sh /etc/my_init.d/97_riak_conf.sh
+
+# Setup riak initialization scripts
+ADD bin/run_riak.sh /usr/local/bin/run_riak.sh
+ADD bin/init_riak.sh /etc/my_init.d/98_riak_init.sh
 
 # Setup automatic clustering
 ADD bin/automatic_clustering.sh /etc/my_init.d/99_automatic_clustering.sh
